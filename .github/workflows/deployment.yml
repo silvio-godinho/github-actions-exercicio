@@ -1,3 +1,4 @@
+---
 name: Exercicio GHA
 on:
   workflow_dispatch:

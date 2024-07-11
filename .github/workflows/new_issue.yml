@@ -1,11 +1,18 @@
 name: Output information
 on:
   workflow_dispatch:
-  issues:
-    types: [opened, edited, milestoned]
+  push:
+    branches:
+      - main
 jobs:
-  info:
+  yaml:
     runs-on: ubuntu-latest
     steps:
-    - name: Output GitHub context
-      run: echo "${{ toJSON(github.event) }}"
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: 'Yamllint'
+      uses: karancode/yamllint-github-action@master
+      with:
+        yamllint_file_or_dir: '.'
+        yamllint_config_filepath: .github/workflows/.yamllint
+        yamllint_comment: true
